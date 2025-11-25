@@ -1,25 +1,24 @@
-import pandas as pd
+import matplotlib
+
 import serial
-import matplotlib.pyplot as plt
 import time
+from itertools import count
+import pandas as pd
+from collections import deque
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
-com_port = "/dev/cu.usbmodem11201"
-baudrate = 9600
-filename = "arduino_data.csv"
+SERIAL_PORT = '/dev/cu.usbmodem11401'
+BAUD_RATE = 9600
+ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
+time.sleep(2)  # Wait for connection to establish
+ser.reset_input_buffer()
+print("Connected to Arduino. Waiting for data...")
 
+max_points = 100
+times = deque(maxlen=max_points)
+temperatures = deque(maxlen=max_points)
+humidities = deque(maxlen=max_points)
 
-
-
-
-
-
-
-
-'''plt.ion()
-fig,ax = plt.subplots()
-file = "testdata.csv"
-chunk = 50
-
-df = pd.dataFrame()
-chunks = pd.read_csv(file, chunksize=chunk)
-'''
+index = count()
+start_time = time.time()
