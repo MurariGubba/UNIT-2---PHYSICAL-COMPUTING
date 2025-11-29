@@ -3,10 +3,7 @@ import matplotlib
 import serial
 import time
 from itertools import count
-import pandas as pd
 from collections import deque
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 
 SERIAL_PORT = '/dev/cu.usbmodem11401'
 BAUD_RATE = 9600
