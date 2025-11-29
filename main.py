@@ -22,3 +22,30 @@ humidities = deque(maxlen=max_points)
 
 index = count()
 start_time = time.time()
+
+def animate(i):
+    try:
+
+            line = ser.readline().decode('utf-8').strip()
+            if line:
+                print(f"Received: {line}")  # Debug print
+
+            if line and line != "ERROR":
+                # Parse temperature and humidity
+                values = line.split(',')
+                if len(values) == 2:
+                    try:
+                        temp = float(values[0])
+                        humid = float(values[1])
+
+                        # Append data
+                        current_time = time.time() - start_time
+                        times.append(current_time)
+                        temperatures.append(temp)
+                        humidities.append(humid)
+
+                    except ValueError:
+                        print(f"Invalid data format: {line}")
+
+    except Exception as e:
+        print(f"Error: {e}")
