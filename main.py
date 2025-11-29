@@ -60,7 +60,17 @@ def animate(i):
     plt.ylabel('Temp and Humidity')
     plt.title('Temperature and Humidity Monitoring')
     plt.legend(loc='upper right')
+    
+ani = FuncAnimation(plt.gcf(), animate, interval=1000, cache_frame_data=False)
 
+plt.tight_layout()
+
+try:
+    plt.show()
+except KeyboardInterrupt:
+    print("\nStopping...")
+finally:
+    ser.close()
 
 
 
