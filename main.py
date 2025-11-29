@@ -14,12 +14,10 @@ ser.reset_input_buffer()
 print("Connected to Arduino. Waiting for data...")
 print("We are starting the graph now. It will open in a different window.")
 
-max_points = 100
-times = deque(maxlen=max_points)
-temperatures = deque(maxlen=max_points)
-humidities = deque(maxlen=max_points)
+times = deque(maxlen=100)
+temperatures = deque(maxlen=100)
+humidities = deque(maxlen=100)
 
-index = count()
 start_time = time.time()
 print(start_time)
 
@@ -60,8 +58,11 @@ def animate(i):
     plt.ylabel('Temp and Humidity')
     plt.title('Temperature and Humidity Monitoring')
     plt.legend(loc='upper right')
-    
-ani = FuncAnimation(plt.gcf(), animate, interval=1000, cache_frame_data=False)
+
+ani = FuncAnimation(plt.gcf(),
+                    animate,
+                    interval=1000,
+                    cache_frame_data=False)
 
 plt.tight_layout()
 
