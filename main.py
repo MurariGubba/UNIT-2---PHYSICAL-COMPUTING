@@ -1,9 +1,10 @@
 import matplotlib
-
 import serial
 import time
 from itertools import count
 from collections import deque
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 SERIAL_PORT = '/dev/cu.usbmodem11401'
 BAUD_RATE = 9600
@@ -11,6 +12,7 @@ ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
 time.sleep(2)  # Wait for connection to establish
 ser.reset_input_buffer()
 print("Connected to Arduino. Waiting for data...")
+print("We are starting the graph now. It will open in a different window.")
 
 max_points = 100
 times = deque(maxlen=max_points)
@@ -19,6 +21,7 @@ humidities = deque(maxlen=max_points)
 
 index = count()
 start_time = time.time()
+print(start_time)
 
 def animate(i):
     try:
@@ -47,3 +50,17 @@ def animate(i):
 
     except Exception as e:
         print(f"Error: {e}")
+
+    plt.cla()
+
+    if len(times)>0:
+        plt.plot(times, temperatures, label='Temperature')
+        plt.plot(times, humidities, label='Humidity')
+    plt.xlabel('Time')
+    plt.ylabel('Temp and Humidity')
+    plt.title('Temperature and Humidity Monitoring')
+    plt.legend(loc='upper right')
+
+
+
+
